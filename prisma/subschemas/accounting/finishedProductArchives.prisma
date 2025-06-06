@@ -1,0 +1,28 @@
+model FinishedProductArchive {
+    id                       String                     @id @default(uuid())
+    pricingExaminationId     String                     @map("pricing_examination_id")
+    currentFinishedProductId String                     @map("current_finished_product_id")
+    name                     String
+    filledWithItemId         String                     @map("filled_with_item_id")
+    fillQuantity             Float                      @map("fill_quantity")
+    declaredQuantity         Float                      @map("declared_quantity")
+    freeShippingCost         Float                      @map("free_shipping_cost")
+    fillUomId                String                     @map("fill_uom_id")
+    difficultyAdjustmentCost Float                      @map("difficulty_adjustment_cost")
+    finishedProductTotalCost Float                      @map("finished_product_total_cost")
+    auxiliariesTotalCost     Float                      @map("auxiliaries_total_cost")
+    productFillCost          Float                      @map("product_fill_cost")
+    consumerPrice            Float                      @map("consumer_price")
+    markup                   Float                      @map("markup")
+    profit                   Float                      @map("profit")
+    profitPercentage         Float                      @map("profit_percentage")
+    createdAt                DateTime                   @default(now()) @map("created_at")
+    updatedAt                DateTime                   @updatedAt @map("updated_at")
+    filledWithItem           Item                       @relation(fields: [filledWithItemId], references: [id])
+    fillUom                  UnitOfMeasurement          @relation(fields: [fillUomId], references: [id])
+    pricingExamination       PricingExamination         @relation(fields: [pricingExaminationId], references: [id])
+    currentFinishedProduct   FinishedProduct            @relation(fields: [currentFinishedProductId], references: [id])
+    auxiliaries              FinishedProductAuxiliary[]
+
+    @@map("finished_product_archives")
+}

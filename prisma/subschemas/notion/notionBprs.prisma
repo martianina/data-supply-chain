@@ -1,0 +1,10 @@
+model NotionBpr {
+    id              String   @id @default(uuid())
+    gingerscienceBprId    String @map("gingerscience_bpr_id")
+    notionPageId    String @map("notion_page_id")
+    createdAt       DateTime @default(now()) @map("created_at")
+    updatedAt       DateTime @updatedAt @map("updated_at")
+
+    bpr   BatchProductionRecord  @relation(fields: [gingerscienceBprId], references: [id])
+    @@map("notion_bprs")
+}
